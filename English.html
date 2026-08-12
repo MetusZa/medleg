@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TomEDU - Англи хэл</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(0,255,255,.12), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(255,0,255,.12), transparent 30%),
+        #05050b;
+}
+
+.top {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 34px;
+    font-weight: 900;
+
+    background: linear-gradient(
+        90deg,
+        #00ffff,
+        #7c4dff,
+        #ff00ff
+    );
+
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 15px;
+    color: #aaa;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 25px;
+    padding: 30px 20px;
+
+    box-shadow: 0 0 30px rgba(0,255,255,.08);
+}
+
+h1 {
+    text-align: center;
+}
+
+.lesson {
+    text-align: center;
+    color: #aaa;
+}
+
+.question-number {
+    text-align: center;
+    color: #00ffff;
+    margin-top: 25px;
+}
+
+.question {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.answers {
+    display: grid;
+    gap: 12px;
+}
+
+.answer {
+    padding: 17px;
+
+    border-radius: 15px;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    background: rgba(255,255,255,.05);
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.answer:hover {
+    border-color: #00ffff;
+
+    box-shadow:
+        0 0 15px rgba(0,255,255,.25);
+}
+
+.answer.correct {
+    border-color: #00ff88;
+
+    background: rgba(0,255,136,.12);
+
+    box-shadow:
+        0 0 20px rgba(0,255,136,.25);
+}
+
+.answer.wrong {
+    border-color: #ff3366;
+
+    background: rgba(255,51,102,.12);
+}
+
+.message {
+    text-align: center;
+
+    margin-top: 22px;
+
+    min-height: 30px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+.xp {
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: #ffd700;
+
+    font-weight: bold;
+}
+
+.next {
+    display: none;
+
+    margin: 20px auto 0;
+
+    padding: 14px 30px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0066ff,
+            #9d00ff,
+            #ff00cc
+        );
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.result {
+    display: none;
+
+    text-align: center;
+}
+
+.result h2 {
+    font-size: 30px;
+}
+
+.medal {
+    font-size: 55px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+
+    <div class="logo">
+        🎓 TomEDU
+    </div>
+
+    <a class="back" href="index.html">
+        ← Нүүр хуудас
+    </a>
+
+</div>
+
+
+<div class="container">
+
+<div class="card">
+
+    <h1>🇬🇧 Англи хэл</h1>
+
+    <div class="lesson">
+        Level 1 • Үндсэн үгс
+    </div>
+
+
+    <div id="quiz">
+
+        <div class="question-number">
+            Асуулт <span id="current">1</span> / 10
+        </div>
+
+
+        <div class="question" id="question">
+            “Муур” гэдэг үгийг англиар сонгоно уу?
+        </div>
+
+
+        <div class="answers" id="answers"></div>
+
+
+        <div class="message" id="message"></div>
+
+
+        <div class="xp">
+            ⭐ XP: <span id="xp">0</span>
+        </div>
+
+
+        <button
+            class="next"
+            id="next"
+            onclick="nextQuestion()">
+            Дараагийн асуулт →
+        </button>
+
+    </div>
+
+
+    <div class="result" id="result">
+
+        <div class="medal">
+            🏅
+        </div>
+
+        <h2>Level Complete!</h2>
+
+        <p id="score"></p>
+
+        <p>
+            ⭐ Нийт XP:
+            <strong id="finalXP">0</strong>
+        </p>
+
+        <p>
+            🏆 Medal:
+            <strong>English Beginner</strong>
+        </p>
+
+        <button
+            class="next"
+            style="display:inline-block"
+            onclick="location.reload()">
+
+            🔄 Дахин тоглох
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+{
+    mongolian: "Муур",
+    answers: ["Dog", "Cat", "Fish", "Bird"],
+    correct: "Cat"
+},
+
+{
+    mongolian: "Нохой",
+    answers: ["Dog", "Horse", "Cat", "Fish"],
+    correct: "Dog"
+},
+
+{
+    mongolian: "Загас",
+    answers: ["Bird", "Fish", "Dog", "Cat"],
+    correct: "Fish"
+},
+
+{
+    mongolian: "Шувуу",
+    answers: ["Fish", "Bird", "Horse", "Dog"],
+    correct: "Bird"
+},
+
+{
+    mongolian: "Улаан",
+    answers: ["Blue", "Green", "Red", "Black"],
+    correct: "Red"
+},
+
+{
+    mongolian: "Цэнхэр",
+    answers: ["Yellow", "Blue", "Red", "Green"],
+    correct: "Blue"
+},
+
+{
+    mongolian: "Ном",
+    answers: ["Pen", "Book", "Bag", "Desk"],
+    correct: "Book"
+},
+
+{
+    mongolian: "Алим",
+    answers: ["Orange", "Apple", "Banana", "Grape"],
+    correct: "Apple"
+},
+
+{
+    mongolian: "Сургууль",
+    answers: ["Home", "School", "Shop", "Park"],
+    correct: "School"
+},
+
+{
+    mongolian: "Найз",
+    answers: ["Teacher", "Brother", "Friend", "Student"],
+    correct: "Friend"
+}
+
+];
+
+
+let current = 0;
+
+let xp = 0;
+
+let score = 0;
+
+let answered = false;
+
+
+function showQuestion() {
+
+    answered = false;
+
+    const q = questions[current];
+
+    document.getElementById("current").innerText =
+        current + 1;
+
+    document.getElementById("question").innerText =
+        "“" + q.mongolian +
+        "” гэдэг үгийг англиар сонгоно уу?";
+
+
+    document.getElementById("message").innerText = "";
+
+    document.getElementById("next").style.display =
+        "none";
+
+
+    const answers =
+        document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+
+    q.answers.forEach(answer => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer";
+
+        button.innerText = answer;
+
+        button.onclick = function() {
+
+            checkAnswer(button, answer);
+
+        };
+
+        answers.appendChild(button);
+
+    });
+
+}
+
+
+function checkAnswer(button, answer) {
+
+    if(answered) return;
+
+    answered = true;
+
+    const q = questions[current];
+
+    const allButtons =
+        document.querySelectorAll(".answer");
+
+
+    allButtons.forEach(btn => {
+
+        btn.disabled = true;
+
+        if(btn.innerText === q.correct) {
+
+            btn.classList.add("correct");
+
+        }
+
+    });
+
+
+    if(answer === q.correct) {
+
+        score++;
+
+        xp += 50;
+
+        button.classList.add("correct");
+
+        document.getElementById("message").innerText =
+            "🎉 Зөв! +50 XP";
+
+    }
+
+    else {
+
+        button.classList.add("wrong");
+
+        document.getElementById("message").innerText =
+            "❌ Буруу! Зөв хариулт: " +
+            q.correct;
+
+    }
+
+
+    document.getElementById("xp").innerText =
+        xp;
+
+
+    document.getElementById("next").style.display =
+        "block";
+
+}
+
+
+function nextQuestion() {
+
+    current++;
+
+    if(current < questions.length) {
+
+        showQuestion();
+
+    }
+
+    else {
+
+        finishQuiz();
+
+    }
+
+}
+
+
+function finishQuiz() {
+
+    document.getElementById("quiz")
+        .style.display = "none";
+
+    document.getElementById("result")
+        .style.display = "block";
+
+
+    document.getElementById("score").innerText =
+        "🎯 " + score +
+        " / " +
+        questions.length +
+        " зөв хариуллаа!";
+
+
+    document.getElementById("finalXP").innerText =
+        xp;
+
+}
+
+
+showQuestion();
+
+</script>
+
+</body>
+</html>
