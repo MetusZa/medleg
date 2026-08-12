@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TomEDU</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(0,255,255,0.12), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(255,0,255,0.12), transparent 30%),
+        #05050b;
+    color: white;
+    min-height: 100vh;
+}
+
+/* RGB LINE */
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #00ffff,
+        #0066ff,
+        #9d00ff,
+        #ff00ff,
+        #ff0066,
+        #00ffff
+    );
+
+    background-size: 400%;
+    animation: rgb 8s linear infinite;
+}
+
+@keyframes rgb {
+    0% { background-position: 0%; }
+    100% { background-position: 400%; }
+}
+
+/* HEADER */
+
+header {
+    padding: 35px 20px 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 46px;
+    font-weight: 900;
+
+    background: linear-gradient(
+        90deg,
+        #00ffff,
+        #7c4dff,
+        #ff00ff
+    );
+
+    -webkit-background-clip: text;
+    color: transparent;
+
+    text-shadow:
+        0 0 20px rgba(0,255,255,0.4);
+}
+
+.tagline {
+    color: #a8a8b8;
+    margin-top: 5px;
+}
+
+/* NAV */
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.nav button {
+    background: rgba(255,255,255,0.05);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.nav button:hover {
+    border-color: #00ffff;
+    box-shadow: 0 0 15px rgba(0,255,255,0.4);
+}
+
+/* HERO */
+
+.hero {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 50px 25px;
+
+    text-align: center;
+
+    border: 1px solid rgba(0,255,255,0.15);
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,255,0.05),
+            rgba(255,0,255,0.05)
+        );
+
+    box-shadow:
+        0 0 40px rgba(0,255,255,0.08);
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #aaa;
+    font-size: 17px;
+}
+
+.start-button {
+    margin-top: 20px;
+    padding: 15px 35px;
+
+    border: none;
+    border-radius: 14px;
+
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+
+    background: linear-gradient(
+        90deg,
+        #0066ff,
+        #9d00ff,
+        #ff00cc
+    );
+
+    box-shadow:
+        0 0 25px rgba(157,0,255,0.5);
+
+    cursor: pointer;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+}
+
+/* SECTION */
+
+.section {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+/* GRADE */
+
+.grades {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(100px, 1fr));
+
+    gap: 12px;
+}
+
+.grade {
+    padding: 18px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.04);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    border-radius: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.grade:hover {
+    transform: translateY(-4px);
+
+    border-color: #00ffff;
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,0.25);
+}
+
+/* SUBJECTS */
+
+.subjects {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(160px, 1fr));
+
+    gap: 18px;
+}
+
+.subject {
+
+    padding: 25px 15px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.06),
+            rgba(255,255,255,0.02)
+        );
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    border-radius: 20px;
+
+    transition: 0.25s;
+
+    cursor: pointer;
+}
+
+.subject .icon {
+    font-size: 35px;
+}
+
+.subject h3 {
+    margin: 12px 0 5px;
+}
+
+.subject p {
+    margin: 0;
+    color: #888;
+    font-size: 13px;
+}
+
+.subject:hover {
+
+    transform: translateY(-7px);
+
+    border-color: #ff00ff;
+
+    box-shadow:
+        0 0 25px rgba(255,0,255,0.25);
+}
+
+/* FOOTER */
+
+footer {
+
+    margin-top: 70px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: #666;
+
+    border-top:
+        1px solid rgba(255,255,255,0.08);
+}
+
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🎓 TomEDU
+    </div>
+
+    <div class="tagline">
+        Тоглож байгаа мэт суралц. Мэдлэгээ level ахиул.
+    </div>
+
+</header>
+
+
+<div class="nav">
+
+    <button>🏠 Нүүр</button>
+    <button>📚 Хичээл</button>
+    <button>🏆 Leaderboard</button>
+    <button>🏅 Medal</button>
+    <button>👤 Profile</button>
+
+</div>
+
+
+<section class="hero">
+
+    <h1>
+        🚀 Өөрийнхөө дараагийн Level-ийг нээ
+    </h1>
+
+    <p>
+        1–12-р ангийн хичээлүүдийг тоглоом шиг суралцаж,
+        XP цуглуулж, Medal авч, leaderboard-д өрсөлдөөрэй.
+    </p>
+
+    <button class="start-button">
+        🎮 Суралцаж эхлэх
+    </button>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-title">
+        🎓 Ангиа сонго
+    </div>
+
+    <div class="grades">
+
+        <div class="grade">1-р анги</div>
+        <div class="grade">2-р анги</div>
+        <div class="grade">3-р анги</div>
+        <div class="grade">4-р анги</div>
+        <div class="grade">5-р анги</div>
+        <div class="grade">6-р анги</div>
+
+        <div class="grade">7-р анги</div>
+        <div class="grade">8-р анги</div>
+        <div class="grade">9-р анги</div>
+        <div class="grade">10-р анги</div>
+        <div class="grade">11-р анги</div>
+        <div class="grade">12-р анги</div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-title">
+        📚 Хичээлүүд
+    </div>
+
+    <div class="subjects">
+
+
+        <div class="subject">
+
+            <div class="icon">🧮</div>
+
+            <h3>Математик</h3>
+
+            <p>Бодлого • Quiz • Challenge</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">📖</div>
+
+            <h3>Монгол хэл</h3>
+
+            <p>Хэл зүй • Унших • Бичих</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🇬🇧</div>
+
+            <h3>Англи хэл</h3>
+
+            <p>Grammar • Vocabulary</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">⚛️</div>
+
+            <h3>Физик</h3>
+
+            <p>Онол • Бодлого • Quiz</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🧪</div>
+
+            <h3>Хими</h3>
+
+            <p>Reaction • Formula • Quiz</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🧬</div>
+
+            <h3>Биологи</h3>
+
+            <p>Онол • Diagram • Quiz</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🌍</div>
+
+            <h3>Газарзүй</h3>
+
+            <p>Map • Quiz • Challenge</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🏛️</div>
+
+            <h3>Түүх</h3>
+
+            <p>Монгол • Дэлхийн түүх</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">👥</div>
+
+            <h3>Нийгэм</h3>
+
+            <p>Quiz • Analysis</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">💻</div>
+
+            <h3>Мэдээлэл зүй</h3>
+
+            <p>Computer • Coding</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🎨</div>
+
+            <h3>Дүрслэх урлаг</h3>
+
+            <p>Art • Creativity</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🎵</div>
+
+            <h3>Хөгжим</h3>
+
+            <p>Music • Theory</p>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="icon">🏃</div>
+
+            <h3>Биеийн тамир</h3>
+
+            <p>Sport • Health</p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    © 2026 TomEDU  
+    <br><br>
+    Тоглож байгаа мэт суралц. 🚀
+
+</footer>
+
+
+</body>
+</html>
