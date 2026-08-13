@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TomEDU English</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+    background:
+    radial-gradient(circle at 15% 15%,rgba(0,255,255,.12),transparent 28%),
+    radial-gradient(circle at 85% 25%,rgba(255,0,255,.12),transparent 30%),
+    radial-gradient(circle at 50% 90%,rgba(0,100,255,.10),transparent 35%),
+    #05050b;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    z-index:9999;
+    background:linear-gradient(
+        90deg,
+        #00ffff,
+        #0066ff,
+        #9d00ff,
+        #ff00ff,
+        #ff0066,
+        #00ffff
+    );
+    background-size:400%;
+    animation:rgbLine 7s linear infinite;
+}
+
+@keyframes rgbLine{
+    0%{background-position:0%}
+    100%{background-position:400%}
+}
+
+/* HEADER */
+
+.header{
+    padding:28px 20px 15px;
+    text-align:center;
+}
+
+.logo{
+    font-size:38px;
+    font-weight:900;
+    background:linear-gradient(
+        90deg,
+        #00ffff,
+        #7c4dff,
+        #ff00ff
+    );
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 20px rgba(0,255,255,.35);
+}
+
+.back{
+    display:inline-block;
+    margin-top:8px;
+    color:#999;
+    text-decoration:none;
+    font-size:14px;
+}
+
+/* XP */
+
+.xp-box{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:5000;
+    padding:10px 15px;
+    border-radius:15px;
+    background:rgba(5,5,15,.92);
+    border:1px solid rgba(255,215,0,.25);
+    color:#ffd700;
+    font-weight:900;
+    box-shadow:0 0 15px rgba(255,215,0,.12);
+    transition:.2s;
+}
+
+.xp-glow{
+    animation:xpGlow .8s ease;
+}
+
+@keyframes xpGlow{
+    0%{transform:scale(1)}
+    35%{
+        transform:scale(1.15);
+        box-shadow:
+        0 0 12px #ffd700,
+        0 0 30px #ffd700,
+        0 0 55px rgba(255,215,0,.5);
+    }
+    100%{transform:scale(1)}
+}
+
+.xp-popup{
+    position:fixed;
+    top:60px;
+    right:22px;
+    z-index:5001;
+    color:#ffd700;
+    font-size:23px;
+    font-weight:900;
+    pointer-events:none;
+    opacity:0;
+}
+
+.xp-popup.show{
+    animation:xpPopup 1s ease forwards;
+}
+
+@keyframes xpPopup{
+    0%{
+        opacity:0;
+        transform:translateY(10px) scale(.7);
+    }
+    20%{
+        opacity:1;
+        transform:translateY(0) scale(1.2);
+    }
+    100%{
+        opacity:0;
+        transform:translateY(-50px) scale(1);
+    }
+}
+
+/* HEARTS */
+
+.hearts-box{
+    position:fixed;
+    top:65px;
+    right:14px;
+    z-index:4999;
+    padding:7px 12px;
+    border-radius:13px;
+    background:rgba(5,5,15,.9);
+    border:1px solid rgba(255,60,90,.25);
+    box-shadow:0 0 15px rgba(255,0,60,.12);
+    font-size:19px;
+    letter-spacing:2px;
+}
+
+.heartLost{
+    animation:heartLost .55s ease;
+}
+
+@keyframes heartLost{
+    0%{transform:scale(1)}
+    25%{transform:scale(1.3) rotate(-5deg)}
+    50%{transform:scale(.8) rotate(5deg)}
+    100%{transform:scale(1)}
+}
+
+/* MAIN */
+
+.container{
+    width:min(700px,94%);
+    margin:10px auto 50px;
+}
+
+.card{
+    padding:28px 20px;
+    border-radius:27px;
+    border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.06),
+        rgba(255,255,255,.025)
+    );
+    box-shadow:0 0 40px rgba(0,255,255,.07);
+    backdrop-filter:blur(10px);
+}
+
+h1{
+    text-align:center;
+    font-size:28px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#999;
+    line-height:1.5;
+}
+
+/* MENU */
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+    margin-top:25px;
+}
+
+.menu-button{
+    min-height:65px;
+    padding:15px;
+    border-radius:17px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.045);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.menu-button:hover{
+    transform:translateY(-4px);
+    border-color:#00ffff;
+    box-shadow:0 0 20px rgba(0,255,255,.25);
+}
+
+.menu-button:active{
+    transform:scale(.96);
+}
+
+.easy{border-color:rgba(0,255,100,.5)}
+.normal{border-color:rgba(0,180,255,.5)}
+.medium{border-color:rgba(255,210,0,.5)}
+.hard{border-color:rgba(255,110,0,.5)}
+.extreme{border-color:rgba(255,0,60,.5)}
+
+/* QUIZ */
+
+.progress{
+    width:100%;
+    height:7px;
+    margin:12px 0 20px;
+    border-radius:20px;
+    background:rgba(255,255,255,.08);
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        #00ffff,
+        #7c4dff,
+        #ff00ff
+    );
+    transition:width .5s ease;
+}
+
+.question-number{
+    text-align:center;
+    color:#00ffff;
+    font-size:14px;
+}
+
+.question{
+    text-align:center;
+    font-size:26px;
+    font-weight:900;
+    margin:28px 5px;
+}
+
+/* ANSWERS */
+
+.answers{
+    display:grid;
+    gap:12px;
+}
+
+.answer{
+    width:100%;
+    padding:17px 14px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.045);
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.answer:hover{
+    border-color:#00ffff;
+    box-shadow:0 0 18px rgba(0,255,255,.18);
+    transform:translateY(-2px);
+}
+
+.answer:disabled{
+    cursor:default;
+}
+
+.answer.correct{
+    border-color:#00ff88;
+    background:rgba(0,255,120,.15);
+    box-shadow:
+    0 0 20px rgba(0,255,120,.35),
+    0 0 45px rgba(0,255,120,.15);
+    animation:correctGlow .8s ease;
+}
+
+.answer.wrong{
+    border-color:#ff1744;
+    background:rgba(255,0,50,.14);
+    animation:wrongShake .55s ease;
+}
+
+@keyframes correctGlow{
+    0%{transform:scale(1)}
+    40%{
+        transform:scale(1.05);
+        box-shadow:
+        0 0 30px #00ff88,
+        0 0 60px rgba(0,255,120,.3);
+    }
+    100%{transform:scale(1)}
+}
+
+@keyframes wrongShake{
+    0%{transform:translateX(0)}
+    20%{transform:translateX(-8px)}
+    40%{transform:translateX(8px)}
+    60%{transform:translateX(-6px)}
+    80%{transform:translateX(6px)}
+    100%{transform:translateX(0)}
+}
+
+/* FEEDBACK */
+
+.feedback{
+    min-height:55px;
+    text-align:center;
+    margin-top:20px;
+    font-size:25px;
+    font-weight:900;
+}
+
+.feedback.praise{
+    animation:praise .8s cubic-bezier(.2,1.5,.4,1);
+}
+
+@keyframes praise{
+    0%{
+        opacity:0;
+        transform:scale(.3) rotate(-8deg);
+    }
+    30%{
+        opacity:1;
+        transform:scale(1.3) rotate(5deg);
+    }
+    55%{
+        transform:scale(.92) rotate(-2deg);
+    }
+    100%{
+        transform:scale(1) rotate(0);
+    }
+}
+
+/* LEARNING */
+
+.learning{
+    display:none;
+    text-align:center;
+    animation:fadeIn .4s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.learning-word{
+    font-size:42px;
+    font-weight:900;
+    margin:15px 0;
+    background:linear-gradient(
+        90deg,
+        #00ffff,
+        #ff00ff
+    );
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+/* WRITE */
+
+.write-box{
+    display:flex;
+    gap:8px;
+    margin:20px 0 10px;
+}
+
+.write-input{
+    flex:1;
+    min-width:0;
+    padding:15px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.35);
+    color:white;
+    font-size:17px;
+    outline:none;
+}
+
+.write-input:focus{
+    border-color:#00ffff;
+    box-shadow:0 0 15px rgba(0,255,255,.2);
+}
+
+.check-button{
+    padding:12px 18px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(
+        90deg,
+        #0066ff,
+        #9d00ff
+    );
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* SPEAK */
+
+.speak-card{
+    margin-top:22px;
+    padding:20px;
+    border-radius:18px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.play-button,
+.mic-button{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:15px;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.play-button{
+    background:linear-gradient(
+        90deg,
+        #00aaff,
+        #7c4dff
+    );
+}
+
+.mic-button{
+    margin-top:10px;
+    border:1px solid #00ff88;
+    background:rgba(0,255,120,.08);
+}
+
+.mic-button.listening{
+    animation:micPulse 1s infinite;
+}
+
+@keyframes micPulse{
+    0%,100%{
+        box-shadow:0 0 5px rgba(0,255,120,.2);
+    }
+    50%{
+        box-shadow:0 0 30px rgba(0,255,120,.7);
+    }
+}
+
+.speech-result{
+    min-height:25px;
+    margin-top:12px;
+    color:#aaa;
+}
+
+/* NEXT */
+
+.next-button{
+    display:none;
+    width:100%;
+    margin-top:20px;
+    padding:16px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(
+        90deg,
+        #0066ff,
+        #9d00ff,
+        #ff00cc
+    );
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FRIEND */
+
+.friend{
+    position:fixed;
+    left:12px;
+    bottom:15px;
+    width:90px;
+    height:90px;
+    z-index:4000;
+    cursor:pointer;
+    user-select:none;
+    transition:.25s ease;
+}
+
+.friend:hover{
+    transform:scale(1.08);
+}
+
+.friend-body{
+    position:absolute;
+    left:15px;
+    bottom:0;
+    width:60px;
+    height:58px;
+    border-radius:45% 45% 35% 35%;
+    background:linear-gradient(
+        145deg,
+        #7c4dff,
+        #00c6ff
+    );
+    box-shadow:
+    0 0 20px rgba(0,200,255,.35);
+}
+
+.friend-head{
+    position:absolute;
+    left:13px;
+    top:0;
+    width:64px;
+    height:60px;
+    border-radius:50%;
+    background:#ffd4a8;
+    border:3px solid #fff;
+    box-shadow:0 0 18px rgba(255,210,160,.25);
+}
+
+.eye{
+    position:absolute;
+    top:23px;
+    width:7px;
+    height:9px;
+    border-radius:50%;
+    background:#111;
+}
+
+.eye.left{left:18px}
+.eye.right{right:18px}
+
+.mouth{
+    position:absolute;
+    left:25px;
+    top:38px;
+    width:14px;
+    height:7px;
+    border-bottom:3px solid #222;
+    border-radius:50%;
+}
+
+.friend.bounce{
+    animation:friendBounce .65s ease;
+}
+
+@keyframes friendBounce{
+    0%{transform:translateY(0) rotate(0)}
+    30%{transform:translateY(-15px) rotate(-6deg)}
+    60%{transform:translateY(4px) rotate(5deg)}
+    100%{transform:translateY(0) rotate(0)}
+}
+
+.friend.happy .friend-body{
+    animation:happyBody .6s ease;
+}
+
+@keyframes happyBody{
+    0%{transform:scale(1)}
+    40%{transform:scale(1.12)}
+    100%{transform:scale(1)}
+}
+
+.friend.sad{
+    filter:saturate(.7);
+}
+
+.friend.sad .friend-head{
+    transform:rotate(5deg);
+}
+
+.friend-message{
+    position:fixed;
+    left:105px;
+    bottom:105px;
+    width:min(300px,70vw);
+    z-index:4100;
+    padding:13px 16px;
+    border-radius:18px;
+    background:rgba(10,10,25,.96);
+    border:1px solid rgba(0,255,255,.25);
+    box-shadow:0 0 25px rgba(0,255,255,.15);
+    color:white;
+    font-size:14px;
+    line-height:1.45;
+    opacity:0;
+    transform:translateY(10px) scale(.95);
+    pointer-events:none;
+    transition:.3s ease;
+}
+
+.friend-message.show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+}
+
+/* HELP */
+
+.help-box{
+    display:none;
+    margin-top:18px;
+    padding:18px;
+    border-radius:18px;
+    background:rgba(124,77,255,.08);
+    border:1px solid rgba(124,77,255,.25);
+    text-align:center;
+    animation:helpAppear .4s ease;
+}
+
+@keyframes helpAppear{
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.help-title{
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.help-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.help-buttons button{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.yes{
+    background:linear-gradient(90deg,#00aa66,#00dd88);
+}
+
+.no{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12)!important;
+}
+
+.hint-text{
+    min-height:25px;
+    margin-top:12px;
+    font-weight:bold;
+    color:#ffd700;
+    opacity:0;
+    transition:opacity .5s ease;
+}
+
+.hint-text.visible{
+    opacity:1;
+}
+
+.hint-fade{
+    animation:hintFade 3s ease forwards;
+}
+
+@keyframes hintFade{
+    0%{opacity:1}
+    75%{opacity:1}
+    100%{opacity:0}
+}
+
+/* RESULT */
+
+.result{
+    display:none;
+    text-align:center;
+}
+
+.result-medal{
+    font-size:75px;
+    animation:medalPop 1s ease;
+}
+
+@keyframes medalPop{
+    0%{
+        transform:scale(.2) rotate(-20deg);
+        opacity:0;
+    }
+    60%{
+        transform:scale(1.3) rotate(8deg);
+        opacity:1;
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+.result-xp{
+    font-size:32px;
+    color:#ffd700;
+    font-weight:900;
+}
+
+.restart{
+    width:100%;
+    padding:17px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(
+        90deg,
+        #0066ff,
+        #9d00ff
+    );
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.swipe{
+    text-align:center;
+    color:#666;
+    margin-top:18px;
+    font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+    .menu{
+        grid-template-columns:1fr;
+    }
+
+    .logo{
+        font-size:32px;
+    }
+
+    .question{
+        font-size:23px;
+    }
+
+    .xp-box{
+        font-size:13px;
+        padding:8px 11px;
+    }
+
+    .hearts-box{
+        font-size:16px;
+    }
+
+    .friend{
+        width:78px;
+        height:78px;
+        transform:scale(.9);
+        transform-origin:bottom left;
+    }
+
+    .friend-message{
+        left:88px;
+        bottom:90px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- XP -->
+<div class="xp-box" id="xpBox">
+⭐ <span id="xp">0</span> XP
+</div>
+
+<div class="xp-popup" id="xpPopup">
++50 XP
+</div>
+
+<!-- HEARTS -->
+<div class="hearts-box" id="heartsBox">
+❤️❤️❤️❤️❤️
+</div>
+
+<!-- CARTOON FRIEND -->
+<div
+class="friend"
+id="friend"
+onclick="friendClicked()">
+
+    <div class="friend-head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="mouth"></div>
+    </div>
+
+    <div class="friend-body"></div>
+
+</div>
+
+<div
+class="friend-message"
+id="friendMessage">
+</div>
+
+<header class="header">
+
+<div class="logo">
+🎓 TomEDU
+</div>
+
+<a
+href="index.html"
+class="back">
+
+← TomEDU Нүүр
+
+</a>
+
+</header>
+
+<main class="container">
+
+<div class="card">
+
+<!-- CLASS -->
+
+<section id="classScreen">
+
+<h1>
+🇬🇧 Англи хэл
+</h1>
+
+<p class="subtitle">
+Эхлээд өөрийн ангиа сонгоно уу.
+</p>
+
+<div class="menu">
+
+<button class="menu-button" onclick="selectClass(1)">1-р анги</button>
+<button class="menu-button" onclick="selectClass(2)">2-р анги</button>
+<button class="menu-button" onclick="selectClass(3)">3-р анги</button>
+<button class="menu-button" onclick="selectClass(4)">4-р анги</button>
+<button class="menu-button" onclick="selectClass(5)">5-р анги</button>
+<button class="menu-button" onclick="selectClass(6)">6-р анги</button>
+<button class="menu-button" onclick="selectClass(7)">7-р анги</button>
+<button class="menu-button" onclick="selectClass(8)">8-р анги</button>
+<button class="menu-button" onclick="selectClass(9)">9-р анги</button>
+<button class="menu-button" onclick="selectClass(10)">10-р анги</button>
+<button class="menu-button" onclick="selectClass(11)">11-р анги</button>
+<button class="menu-button" onclick="selectClass(12)">12-р анги</button>
+
+</div>
+
+</section>
+
+<!-- DIFFICULTY -->
+
+<section id="difficultyScreen" style="display:none;">
+
+<h1>
+🎯 Түвшингээ сонго
+</h1>
+
+<p class="subtitle" id="classText"></p>
+
+<div class="menu">
+
+<button class="menu-button easy" onclick="startQuiz('easy')">
+🟢 Easy<br>
+<small>Анхан шат</small>
+</button>
+
+<button class="menu-button normal" onclick="startQuiz('normal')">
+🔵 Normal<br>
+<small>Энгийн</small>
+</button>
+
+<button class="menu-button medium" onclick="startQuiz('medium')">
+🟡 Medium<br>
+<small>Дунд</small>
+</button>
+
+<button class="menu-button hard" onclick="startQuiz('hard')">
+🟠 Hard<br>
+<small>Хэцүү</small>
+</button>
+
+<button class="menu-button extreme" onclick="startQuiz('extreme')">
+🔴 Extreme<br>
+<small>Маш хэцүү</small>
+</button>
+
+</div>
+
+</section>
+
+<!-- QUIZ -->
+
+<section id="quizScreen" style="display:none;">
+
+<div class="question-number">
+Асуулт
+<span id="questionNumber">1</span>
+/
+<span id="totalQuestions">10</span>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="question" id="question"></div>
+
+<div class="answers" id="answers"></div>
+
+<div class="feedback" id="feedback"></div>
+
+<!-- HELP BOX -->
+
+<div class="help-box" id="helpBox">
+
+<div class="help-title">
+🤖 Найз: Тусламж хэрэгтэй юу?
+</div>
+
+<div class="help-buttons">
+
+<button
+class="yes"
+onclick="requestHint()">
+Тийм
+</button>
+
+<button
+class="no"
+onclick="declineHint()">
+Үгүй
+</button>
+
+</div>
+
+<div
+class="hint-text"
+id="hintText">
+</div>
+
+</div>
+
+<!-- LEARNING -->
+
+<div class="learning" id="learning">
+
+<div class="learning-word" id="learningWord">
+Cat
+</div>
+
+<h3>
+✍️ Одоо өөрөө бичээрэй
+</h3>
+
+<p class="subtitle">
+Монгол утгыг бичиж баталгаажуулна.
+</p>
+
+<div class="write-box">
+
+<input
+class="write-input"
+id="writeInput"
+type="text"
+placeholder="Монгол үгийг бич...">
+
+<button
+class="check-button"
+onclick="checkWriting()">
+Шалгах
+</button>
+
+</div>
+
+<div
+id="writeFeedback"
+class="feedback">
+</div>
+
+<div
+class="speak-card"
+id="speakCard"
+style="display:none;">
+
+<h3>
+🔊 Дуудлага сурцгаая
+</h3>
+
+<p class="subtitle">
+Эхлээд Play дарж сонсоод дараа нь өөрөө хэлээрэй.
+</p>
+
+<button
+class="play-button"
+onclick="playWord()">
+🔊 ▶ PLAY — Сонсох
+</button>
+
+<button
+class="mic-button"
+id="micButton"
+onclick="startSpeaking()">
+🎤 Одоо чи хэлээрэй
+</button>
+
+<div
+class="speech-result"
+id="speechResult">
+</div>
+
+</div>
+
+</div>
+
+<button
+class="next-button"
+id="nextButton"
+onclick="nextQuestion()">
+Дараагийн асуулт →
+</button>
+
+<div class="swipe">
+👈 Зүүн тийш гулсуулж дараагийн асуулт руу орж болно
+</div>
+
+</section>
+
+<!-- RESULT -->
+
+<section id="resultScreen" class="result">
+
+<div class="result-medal">
+🏆
+</div>
+
+<h1>
+Level Complete!
+</h1>
+
+<p>
+Чи
+<strong id="resultCorrect"></strong>
+асуултыг зөв хариуллаа.
+</p>
+
+<div class="result-xp">
+⭐ <span id="resultXP">0</span> XP
+</div>
+
+<p>
+🎓 <span id="resultClass"></span>
+<br>
+🎯 <span id="resultDifficulty"></span>
+<br>
+❤️ Үлдсэн амь: <span id="resultHearts"></span>
+</p>
+
+<button
+class="restart"
+onclick="location.reload()">
+🔄 Дахин тоглох
+</button>
+
+</section>
+
+</div>
+
+</main>
+
+<script>
+
+/* =========================================================
+   QUESTION DATA
+========================================================= */
+
+const easyWords=[
+
+["муур","cat"],
+["нохой","dog"],
+["загас","fish"],
+["шувуу","bird"],
+["морь","horse"],
+["үхэр","cow"],
+["гахай","pig"],
+["хонь","sheep"],
+["алим","apple"],
+["банана","banana"],
+["жүрж","orange"],
+["усан үзэм","grape"],
+["сүү","milk"],
+["ус","water"],
+["талх","bread"],
+["өндөг","egg"],
+["ном","book"],
+["үзэг","pen"],
+["цүнх","bag"],
+["ширээ","table"],
+["сандал","chair"],
+["сургууль","school"],
+["багш","teacher"],
+["сурагч","student"],
+["найз","friend"],
+["ээж","mother"],
+["аав","father"],
+["ах","brother"],
+["эгч","sister"],
+["гэр","house"],
+["өрөө","room"],
+["машин","car"],
+["автобус","bus"],
+["галт тэрэг","train"],
+["онгоц","plane"],
+["унадаг дугуй","bike"],
+["нар","sun"],
+["сар","moon"],
+["од","star"],
+["тэнгэр","sky"],
+["бороо","rain"],
+["цас","snow"],
+["салхи","wind"],
+["мод","tree"],
+["цэцэг","flower"],
+["өвс","grass"],
+["улаан","red"],
+["цэнхэр","blue"],
+["ногоон","green"],
+["шар","yellow"],
+["хар","black"],
+["цагаан","white"],
+["том","big"],
+["жижиг","small"],
+["өндөр","tall"],
+["богино","short"],
+["халуун","hot"],
+["хүйтэн","cold"],
+["сайн","good"],
+["муу","bad"],
+["аз жаргалтай","happy"],
+["гунигтай","sad"],
+["хурдан","fast"],
+["удаан","slow"],
+["нэг","one"],
+["хоёр","two"],
+["гурав","three"],
+["дөрөв","four"],
+["тав","five"],
+["өглөө","morning"],
+["өдөр","day"],
+["орой","evening"],
+["шөнө","night"],
+["гар","hand"],
+["хөл","foot"],
+["нүд","eye"],
+["чих","ear"],
+["хамар","nose"],
+["ам","mouth"],
+["толгой","head"],
+["үс","hair"],
+["гутал","shoe"],
+["цамц","shirt"],
+["малгай","hat"],
+["хаалга","door"],
+["цонх","window"],
+["цаг","clock"],
+["утас","phone"],
+["компьютер","computer"],
+["тоглоом","game"],
+["хөгжим","music"],
+["спорт","sport"],
+["бөмбөг","ball"],
+["усанд сэлэх","swim"],
+["гүйх","run"],
+["алхах","walk"],
+["идэх","eat"],
+["уух","drink"],
+["унтах","sleep"],
+["унших","read"],
+["бичих","write"],
+["тоглох","play"],
+["харах","see"]
+
+];
+
+const normalData=[
+
+["Би ном уншдаг.","I read books."],
+["Би сургуульдаа явдаг.","I go to school."],
+["Би ус уудаг.","I drink water."],
+["Би алим иддэг.","I eat apples."],
+["Тэр багш.","He is a teacher."],
+["Тэр сурагч.","She is a student."],
+["Тэр гүйж байна.","He is running."],
+["Тэр ном уншиж байна.","She is reading a book."],
+["Би англи хэл сурдаг.","I study English."],
+["Би хөгжимд дуртай.","I like music."],
+["Би хөл бөмбөг тоглодог.","I play football."],
+["Тэр маш өндөр.","He is very tall."],
+["Бид найзууд.","We are friends."],
+["Тэд сургуульд явдаг.","They go to school."],
+["Би өглөө босдог.","I get up in the morning."],
+["Би орой унтдаг.","I go to bed at night."],
+["Тэр өдөр бүр ном уншдаг.","She reads books every day."],
+["Би өчигдөр кино үзсэн.","I watched a movie yesterday."],
+["Тэр өчигдөр сургуульдаа явсан.","He went to school yesterday."],
+["Би маргааш суралцана.","I will study tomorrow."],
+["Тэр англиар ярьж чадна.","She can speak English."],
+["Би машин жолоодож чадна.","I can drive a car."],
+["Би кофе уудаггүй.","I do not drink coffee."],
+["Тэр мах иддэггүй.","He does not eat meat."],
+["Чи англиар ярьдаг уу?","Do you speak English?"],
+["Тэр багш мөн үү?","Is she a teacher?"],
+["Чи хаана амьдардаг вэ?","Where do you live?"],
+["Чи хэдэн настай вэ?","How old are you?"],
+["Энэ миний ном.","This is my book."],
+["Тэр миний найз.","He is my friend."],
+["Энэ маш сайн.","This is very good."],
+["Би ядарч байна.","I am tired."],
+["Би өлсөж байна.","I am hungry."],
+["Би баяртай байна.","I am happy."],
+["Тэр гунигтай байна.","She is sad."],
+["Өнөөдөр хүйтэн байна.","It is cold today."],
+["Өнөөдөр халуун байна.","It is hot today."],
+["Би гэртээ байна.","I am at home."],
+["Тэр өрөөнд байна.","He is in the room."],
+["Ном ширээн дээр байна.","The book is on the table."],
+["Муур сандал дээр байна.","The cat is on the chair."],
+["Би найзтайгаа тоглодог.","I play with my friend."],
+["Бид хамт суралцдаг.","We study together."],
+["Тэр англи хэлээр сайн ярьдаг.","She speaks English well."],
+["Би өдөр бүр дасгал хийдэг.","I exercise every day."],
+["Би сургуульдаа дуртай.","I like my school."],
+["Тэр хөгжим сонсох дуртай.","He likes listening to music."],
+["Би ном худалдаж авсан.","I bought a book."],
+["Тэр шинэ утас авсан.","She bought a new phone."]
+
+];
+
+const mediumData=[
+
+["Тэр өдөр бүр сургуульдаа явдаг.","She goes to school every day."],
+["Тэр өчигдөр сургуульдаа явсан.","She went to school yesterday."],
+["Тэр одоо ном уншиж байна.","She is reading a book now."],
+["Би гэрийн даалгавраа хийсэн.","I have finished my homework."],
+["Би энд таван жил амьдарч байна.","I have lived here for five years."],
+["Би маргааш чамтай уулзана.","I will meet you tomorrow."],
+["Хэрэв бороо орвол би гэртээ үлдэнэ.","If it rains, I will stay home."],
+["Би англи хэл сурахыг хүсэж байна.","I want to learn English."],
+["Тэр илүү шаргуу сурах хэрэгтэй.","He needs to study harder."],
+["Би өчигдөр завгүй байсан.","I was busy yesterday."],
+["Тэд хоёр цагийн турш хүлээж байна.","They have been waiting for two hours."],
+["Би энэ номыг өмнө нь уншиж байсан.","I have read this book before."],
+["Тэр ирэхээс өмнө би явсан.","I had left before he arrived."],
+["Би энэ киног үзэж байгаагүй.","I have never seen this movie."],
+["Тэр надаас өндөр.","He is taller than me."],
+["Энэ бол хамгийн сонирхолтой ном.","This is the most interesting book."],
+["Би англиар чамаас илүү сайн ярьдаг.","I speak English better than you."],
+["Тэр хурдан гүйж чаддаг.","He can run fast."],
+["Чи илүү их дасгал хийх хэрэгтэй.","You should exercise more."],
+["Бид эрт явах ёстой.","We must leave early."],
+["Тэр өчигдөр надад тусалсан.","She helped me yesterday."],
+["Би түүнтэй ярилцахыг хүссэн.","I wanted to talk to him."],
+["Тэр ирэхдээ надад хэлсэн.","He told me when he came."],
+["Би шалгалтад бэлдэж байна.","I am preparing for the exam."],
+["Тэр шалгалтаа амжилттай өгсөн.","She passed her exam."],
+["Би энэ асуултын хариуг мэдэхгүй.","I do not know the answer to this question."],
+["Тэр англи хэлээр ярьж сурч байна.","He is learning to speak English."],
+["Бид асуудлыг хамтдаа шийдсэн.","We solved the problem together."],
+["Би илүү сайн болохыг хүсдэг.","I want to become better."],
+["Тэр маш сонирхолтой түүх ярьсан.","She told an interesting story."]
+
+];
+
+const hardData=[
+
+["Хэрэв би чиний оронд байсан бол илүү их сурах байсан.","If I were you, I would study more."],
+["Тэр ирэхээс өмнө би ажлаа дуусгасан байсан.","I had finished my work before he arrived."],
+["Би илүү их суралцсан ч болоосой.","I wish I had studied more."],
+["Тэр ирсэн бол бид түүнтэй уулзах байсан.","If he had come, we would have met him."],
+["Тэр маш ядарсан байсан ч үргэлжлүүлэн ажилласан.","Although she was very tired, she continued working."],
+["Бороо орж байсан ч бид тоглоомоо үргэлжлүүлсэн.","Even though it was raining, we continued playing."],
+["Тэр зөвхөн ухаалаг биш бас маш хөдөлмөрч.","He is not only intelligent but also hardworking."],
+["Би түүнийг өмнө нь хаа нэгтээ харж байсан юм шиг санагдсан.","I felt as if I had seen him somewhere before."],
+["Тэр шалгалтад тэнцэхийн тулд маш их хичээсэн.","She worked very hard in order to pass the exam."],
+["Тэр яагаад ирээгүйг би ойлгоогүй.","I did not understand why he did not come."],
+["Биднийг очих үед тэд аль хэдийн явсан байсан.","They had already left when we arrived."],
+["Тэр энэ асуудлыг өөрөө шийдэх ёстой байсан.","He was supposed to solve this problem himself."],
+["Би түүний хэлсэн зүйлтэй санал нийлэхгүй байна.","I do not agree with what he said."],
+["Тэр надад туслахыг санал болгосон.","She offered to help me."],
+["Тэр намайг илүү шаргуу ажиллахыг зөвлөсөн.","He advised me to work harder."],
+["Тэр англи хэл сурахад маш их цаг зарцуулдаг.","She spends a lot of time learning English."],
+["Тэд шийдвэрээ эцэслэн гаргахаар ярилцаж байна.","They are discussing their final decision."],
+["Энэ асуудлыг бидний бодож байснаас илүү хурдан шийдсэн.","The problem was solved faster than we expected."],
+["Тэр амжилтанд хүрэхийн тулд олон бэрхшээлийг даван туулсан.","He overcame many difficulties in order to succeed."],
+["Хэдийгээр хэцүү байсан ч тэр бууж өгөөгүй.","Although it was difficult, he did not give up."]
+
+];
+
+const extremeData=[
+
+["Хэрэв би тэр үед үнэнийг мэдсэн бол өөрөөр үйлдэх байсан.","Had I known the truth then, I would have acted differently."],
+["Тэр ирээгүй байсан бол бидний төлөвлөгөө бүтэлгүйтэх байсан.","Had he not come, our plan would have failed."],
+["Тэр маш их ядарсан байсан хэдий ч ажлаа дуусгасан.","Despite being extremely tired, she managed to finish her work."],
+["Түүний тайлбар маш тодорхой бус байсан тул хэн ч ойлгосонгүй.","His explanation was so ambiguous that nobody understood it."],
+["Тэр амжилтанд хүрэх магадлал маш өндөр байсан.","He was highly likely to succeed."],
+["Түүний шийдвэр нөхцөл байдлыг улам дордуулсан.","His decision aggravated the situation."],
+["Энэ асуудлыг үл тоомсорлох нь ноцтой үр дагаварт хүргэж болзошгүй.","Ignoring this issue could lead to serious consequences."],
+["Тэр бүх боломжийг сайтар авч үзсэний дараа шийдвэр гаргасан.","She made a decision after carefully considering all the possibilities."],
+["Тэр алдаагаа хүлээн зөвшөөрөхөөс татгалзсан.","He refused to acknowledge his mistake."],
+["Тэр зорилгодоо хүрэхийн тулд асар их хүчин чармайлт гаргасан.","She made an enormous effort to achieve her goal."],
+["Энэ нөхцөл байдлыг үл харгалзан бид төлөвлөгөөгөө үргэлжлүүлсэн.","Despite the circumstances, we continued with our plan."],
+["Түүний амжилт зөвхөн авьяасаас бус шаргуу хөдөлмөрөөс шалтгаалсан.","His success resulted not only from talent but also from hard work."],
+["Тэр асуудлыг шийдэхээсээ өмнө бүх нотлох баримтыг судалсан.","He examined all the evidence before solving the problem."],
+["Энэ арга нь бидний анх төсөөлж байснаас хамаагүй үр дүнтэй болсон.","This method proved far more effective than we had initially expected."],
+["Тэр алдаагаа давтахгүйн тулд өмнөх туршлагаасаа суралцсан.","She learned from her previous experience so that she would not repeat her mistakes."],
+["Тэр шийдвэр гаргахаасаа өмнө бүх эрсдэлийг тооцоолсон.","He calculated all the risks before making a decision."],
+["Хэдийгээр үр дүн тодорхойгүй байсан ч тэд туршилтаа үргэлжлүүлсэн.","Although the outcome was uncertain, they continued the experiment."],
+["Тэр асуудлыг шийдвэрлэх шинэ арга санал болгосон.","She proposed a new approach to solving the problem."],
+["Түүний аргумент логиктой мэт боловч хангалттай нотолгоо байхгүй.","Although his argument seems logical, there is insufficient evidence."],
+["Тэдний гаргасан шийдвэр ирээдүйд чухал нөлөө үзүүлэх магадлалтай.","The decision they made is likely to have a significant impact in the future."]
+
+];
+
+/* =========================================================
+   QUESTION CREATION
+========================================================= */
+
+function createQuestions(data){
+
+    let result=[];
+
+    data.forEach(item=>{
+
+        const mn=item[0];
+        const en=item[1];
+
+        result.push({
+            type:"translation",
+            q:mn,
+            correct:en,
+            meaning:mn
+        });
+
+    });
+
+    return result;
+}
+
+function buildMCQ(bank){
+
+    return bank.map(item=>{
+
+        let options=[item.correct];
+
+        while(options.length<4){
+
+            const random=
+            bank[Math.floor(Math.random()*bank.length)].correct;
+
+            if(!options.includes(random)){
+                options.push(random);
+            }
+        }
+
+        shuffle(options);
+
+        return{
+            type:item.type,
+            q:item.q,
+            correct:item.correct,
+            meaning:item.meaning,
+            options:options
+        };
+    });
+}
+
+const finalBank={
+
+    easy:buildMCQ(createQuestions(easyWords)),
+    normal:buildMCQ(createQuestions(normalData)),
+    medium:buildMCQ(createQuestions(mediumData)),
+    hard:buildMCQ(createQuestions(hardData)),
+    extreme:buildMCQ(createQuestions(extremeData))
+
+};
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let selectedClass=1;
+let difficulty="";
+let questions=[];
+let currentQuestion=0;
+let score=0;
+let xp=0;
+let hearts=5;
+let answered=false;
+let writingDone=false;
+let speakingDone=false;
+let currentCorrect="";
+let currentMeaning="";
+let hintUses=0;
+let helpTimer=null;
+let hintLocked=false;
+
+/* =========================================================
+   PRAISE
+========================================================= */
+
+const praiseWords=[
+"🎉 МУНДАГ!",
+"🔥 SUPER!",
+"🚀 WOW!",
+"⭐ САЙН БАЙНА!",
+"🏆 ГАЙХАЛТАЙ!",
+"💪 ЯГ ЗӨВ!",
+"⚡ PERFECT!",
+"👑 АВАРГА!",
+"🎯 МАШ САЙН!",
+"✨ ЧАДЛАА!"
+];
+
+const friendWrong=[
+"Oo! Чи алдчихсан юм уу? 🤖",
+"Oo! Ошоо илүү хичээгээрэй! 💪",
+"Зүгээр ээ! Дахиад нэг боломж байна! 🌟",
+"Битгий бууж өгөөрэй! 🔥"
+];
+
+const friendCorrect=[
+"ЯГ ЗӨВ! 🎉",
+"Мундаг байна! ⭐",
+"Чи чадлаа! 🚀",
+"Гайхалтай! 🏆"
+];
+
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffle(array){
+
+    for(let i=array.length-1;i>0;i--){
+
+        const j=Math.floor(Math.random()*(i+1));
+
+        [array[i],array[j]]=[array[j],array[i]];
+    }
+
+    return array;
+}
+
+/* =========================================================
+   CLASS
+========================================================= */
+
+function selectClass(num){
+
+    selectedClass=num;
+
+    document.getElementById("classScreen").style.display="none";
+    document.getElementById("difficultyScreen").style.display="block";
+
+    document.getElementById("classText").innerText=
+    `${num}-р анги сонголоо. Одоо түвшингээ сонгоно уу.`;
+}
+
+/* =========================================================
+   START QUIZ
+========================================================= */
+
+function startQuiz(level){
+
+    difficulty=level;
+
+    let pool=[...finalBank[level]];
+
+    shuffle(pool);
+
+    questions=pool.slice(
+        0,
+        Math.min(10,pool.length)
+    );
+
+    currentQuestion=0;
+    score=0;
+    xp=0;
+    hearts=5;
+    hintUses=0;
+
+    updateHearts();
+
+    document.getElementById("difficultyScreen").style.display="none";
+    document.getElementById("quizScreen").style.display="block";
+
+    document.getElementById("totalQuestions").innerText=
+    questions.length;
+
+    showQuestion();
+}
+
+/* =========================================================
+   SHOW QUESTION
+========================================================= */
+
+function showQuestion(){
+
+    answered=false;
+    writingDone=false;
+    speakingDone=false;
+    hintLocked=false;
+
+    clearTimeout(helpTimer);
+
+    const q=questions[currentQuestion];
+
+    currentCorrect=q.correct;
+    currentMeaning=q.meaning;
+
+    document.getElementById("questionNumber").innerText=
+    currentQuestion+1;
+
+    document.getElementById("question").innerText=q.q;
+
+    document.getElementById("feedback").innerText="";
+    document.getElementById("feedback").className="feedback";
+
+    document.getElementById("learning").style.display="none";
+    document.getElementById("nextButton").style.display="none";
+
+    document.getElementById("answers").style.display="grid";
+    document.getElementById("question").style.display="block";
+
+    document.getElementById("answers").innerHTML="";
+
+    document.getElementById("helpBox").style.display="none";
+
+    document.getElementById("hintText").innerText="";
+    document.getElementById("hintText").className="hint-text";
+
+    const progress=
+    (currentQuestion/questions.length)*100;
+
+    document.getElementById("progressBar").style.width=
+    progress+"%";
+
+    let options=[...q.options];
+
+    shuffle(options);
+
+    options.forEach(option=>{
+
+        const btn=document.createElement("button");
+
+        btn.className="answer";
+
+        /*
+           Зөвхөн англи хариултууд
+        */
+        btn.innerText=option;
+
+        btn.onclick=()=>{
+            checkAnswer(btn,option);
+        };
+
+        document.getElementById("answers").appendChild(btn);
+    });
+
+    /*
+       5 секунд хариулахгүй бол
+       Найз тусламж санал болгоно
+    */
+
+    helpTimer=setTimeout(()=>{
+
+        if(!answered){
+            showHelpQuestion();
+        }
+
+    },5000);
+}
+
+/* =========================================================
+   HELP QUESTION
+========================================================= */
+
+function showHelpQuestion(){
+
+    if(answered) return;
+
+    if(hintUses>=3){
+        return;
+    }
+
+    document.getElementById("helpBox").style.display="block";
+
+    friendSay(
+        "Тусламж хэрэгтэй юу? 🤖",
+        "normal"
+    );
+}
+
+/* =========================================================
+   FRIEND MESSAGE
+========================================================= */
+
+function friendSay(text,type="normal"){
+
+    const friend=document.getElementById("friend");
+    const message=document.getElementById("friendMessage");
+
+    friend.classList.remove("bounce","happy","sad");
+
+    void friend.offsetWidth;
+
+    friend.classList.add("bounce");
+
+    if(type==="happy"){
+        friend.classList.add("happy");
+    }
+
+    if(type==="sad"){
+        friend.classList.add("sad");
+    }
+
+    message.innerText=text;
+    message.classList.remove("show");
+
+    void message.offsetWidth;
+
+    message.classList.add("show");
+}
+
+/* =========================================================
+   FRIEND CLICK
+========================================================= */
+
+function friendClicked(){
+
+    if(!answered){
+
+        if(hintUses<3){
+
+            showHelpQuestion();
+
+        }else{
+
+            friendSay(
+                "Чи одоогоор 3 тусламжаа ашиглачихсан шүү! 💪",
+                "normal"
+            );
+
+        }
+
+        return;
+    }
+
+    const random=
+    praiseWords[
+        Math.floor(Math.random()*praiseWords.length)
+    ];
+
+    friendSay(random,"happy");
+}
+
+/* =========================================================
+   YES HELP
+========================================================= */
+
+function requestHint(){
+
+    if(hintUses>=3){
+
+        friendSay(
+            "Чамд үлдсэн тусламж байхгүй ээ! 😅",
+            "sad"
+        );
+
+        return;
+    }
+
+    hintUses++;
+
+    document.getElementById("helpBox").style.display="none";
+
+    const hint=document.getElementById("hintText");
+
+    /*
+       Зөв хариултыг хэлнэ
+    */
+
+    hint.innerText=
+    "🤖 Зөв хариулт бол: " + currentCorrect;
+
+    hint.className="hint-text visible";
+
+    friendSay(
+        "Зөв хариулт бол " + currentCorrect + " 🤖",
+        "happy"
+    );
+
+    setTimeout(()=>{
+
+        hint.classList.add("hint-fade");
+
+    },10);
+
+    /*
+       3 секундийн дараа
+       дараагийн мессеж
+    */
+
+    setTimeout(()=>{
+
+        friendSay(
+            "Чамд " + (3-hintUses) +
+            " удаагийн тусламж авах эрх үлдсэн шүү! 💡",
+            "happy"
+        );
+
+    },3100);
+}
+
+/* =========================================================
+   NO HELP
+========================================================= */
+
+function declineHint(){
+
+    document.getElementById("helpBox").style.display="none";
+
+    friendSay(
+        "Ойлголоо! 😎 Өөрөө хичээгээрэй!",
+        "happy"
+    );
+
+    setTimeout(()=>{
+
+        const message=document.getElementById("friendMessage");
+
+        message.classList.remove("show");
+
+    },3000);
+}
+
+/* =========================================================
+   CHECK ANSWER
+========================================================= */
+
+function checkAnswer(btn,answer){
+
+    if(answered) return;
+
+    answered=true;
+
+    clearTimeout(helpTimer);
+
+    const q=questions[currentQuestion];
+
+    document
+    .querySelectorAll(".answer")
+    .forEach(button=>{
+
+        button.disabled=true;
+
+        if(button.innerText===q.correct){
+
+            button.classList.add("correct");
+        }
+    });
+
+    if(answer===q.correct){
+
+        score++;
+
+        let points=50;
+
+        if(difficulty==="easy")points=30;
+        if(difficulty==="normal")points=50;
+        if(difficulty==="medium")points=70;
+        if(difficulty==="hard")points=100;
+        if(difficulty==="extreme")points=150;
+
+        xp+=points;
+
+        btn.classList.add("correct");
+
+        const feedback=
+        document.getElementById("feedback");
+
+        feedback.innerText=
+        praiseWords[
+            Math.floor(
+                Math.random()*praiseWords.length
+            )
+        ];
+
+        feedback.className="feedback praise";
+
+        addXP(points);
+
+        if(navigator.vibrate){
+            navigator.vibrate([20,30,20]);
+        }
+
+        friendSay(
+            friendCorrect[
+                Math.floor(
+                    Math.random()*friendCorrect.length
+                )
+            ],
+            "happy"
+        );
+
+        setTimeout(()=>{
+            startLearning();
+        },850);
+
+    }else{
+
+        btn.classList.add("wrong");
+
+        loseHeart();
+
+        const feedback=
+        document.getElementById("feedback");
+
+        feedback.innerText="❌ Буруу!";
+
+        feedback.className="feedback praise";
+
+        friendSay(
+            friendWrong[
+                Math.floor(
+                    Math.random()*friendWrong.length
+                )
+            ],
+            "sad"
+        );
+
+        if(navigator.vibrate){
+
+            navigator.vibrate([
+                100,
+                50,
+                100,
+                50,
+                100
+            ]);
+        }
+
+        document.getElementById("nextButton").style.display=
+        "block";
+
+        /*
+           0 heart бол game over
+        */
+
+        if(hearts<=0){
+
+            setTimeout(()=>{
+                finishQuiz();
+            },1200);
+        }
+    }
+}
+
+/* =========================================================
+   HEART
+========================================================= */
+
+function loseHeart(){
+
+    hearts--;
+
+    updateHearts();
+
+    const box=document.getElementById("heartsBox");
+
+    box.classList.remove("heartLost");
+
+    void box.offsetWidth;
+
+    box.classList.add("heartLost");
+}
+
+function updateHearts(){
+
+    let text="";
+
+    for(let i=0;i<5;i++){
+
+        text+=
+        i<hearts ? "❤️" : "🖤";
+
+    }
+
+    document.getElementById("heartsBox").innerText=text;
+}
+
+/* =========================================================
+   LEARNING
+========================================================= */
+
+function startLearning(){
+
+    document.getElementById("answers").style.display="none";
+
+    document.getElementById("question").style.display="none";
+
+    document.getElementById("learning").style.display="block";
+
+    /*
+       Англи үгийг томоор харуулна
+       Монгол утгыг бичүүлнэ
+    */
+
+    document.getElementById("learningWord").innerText=
+    currentCorrect;
+
+    document.getElementById("writeInput").value="";
+
+    document.getElementById("writeFeedback").innerText="";
+
+    document.getElementById("speakCard").style.display="none";
+
+    document.getElementById("nextButton").style.display="none";
+
+    setTimeout(()=>{
+        document.getElementById("writeInput").focus();
+    },200);
+}
+
+/* =========================================================
+   WRITING
+========================================================= */
+
+function normalizeText(text){
+
+    return text
+    .trim()
+    .toLowerCase()
+    .replace(/[.,!?]/g,"");
+}
+
+function checkWriting(){
+
+    const input=
+    normalizeText(
+        document.getElementById("writeInput").value
+    );
+
+    const correct=
+    normalizeText(currentMeaning);
+
+    const feedback=
+    document.getElementById("writeFeedback");
+
+    if(input===correct){
+
+        writingDone=true;
+
+        feedback.innerText=
+        "✅ Зөв бичлээ! Мундаг!";
+
+        feedback.style.color="#00ff88";
+
+        document.getElementById("speakCard").style.display=
+        "block";
+
+        xp+=10;
+
+        addXP(10);
+
+        friendSay(
+            "Маш сайн! Одоо дуудлагаа суръя! 🔊",
+            "happy"
+        );
+
+    }else{
+
+        feedback.innerText=
+        "❌ Дахиад оролдоорой.";
+
+        feedback.style.color="#ff4567";
+
+        if(navigator.vibrate){
+            navigator.vibrate(60);
+        }
+
+        friendSay(
+            "Дахиад нэг оролдоод үзээрэй! 💪",
+            "sad"
+        );
+    }
+}
+
+/* =========================================================
+   TEXT TO SPEECH
+========================================================= */
+
+function playWord(){
+
+    if(!("speechSynthesis" in window)){
+
+        alert(
+            "Таны browser voice дэмжихгүй байна."
+        );
+
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const utterance=
+    new SpeechSynthesisUtterance(
+        currentCorrect
+    );
+
+    utterance.lang="en-US";
+    utterance.rate=.78;
+    utterance.pitch=1;
+    utterance.volume=1;
+
+    speechSynthesis.speak(utterance);
+
+    friendSay(
+        "Сайн сонсоорой! Одоо чи дагаад хэлээрэй 🎤",
+        "happy"
+    );
+}
+
+/* =========================================================
+   SPEECH RECOGNITION
+========================================================= */
+
+function startSpeaking(){
+
+    const SpeechRecognition=
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+    if(!SpeechRecognition){
+
+        alert(
+            "Энэ browser microphone speech recognition дэмжихгүй байна."
+        );
+
+        return;
+    }
+
+    const recognition=
+    new SpeechRecognition();
+
+    recognition.lang="en-US";
+    recognition.interimResults=false;
+    recognition.maxAlternatives=5;
+
+    const button=
+    document.getElementById("micButton");
+
+    const result=
+    document.getElementById("speechResult");
+
+    button.classList.add("listening");
+
+    button.innerText=
+    "🎤 Сонсож байна...";
+
+    result.innerText=
+    "Одоо "+currentCorrect+" гэж хэлээрэй.";
+
+    recognition.start();
+
+    recognition.onresult=function(event){
+
+        const transcript=
+        event.results[0][0]
+        .transcript
+        .trim()
+        .toLowerCase();
+
+        const target=
+        currentCorrect.toLowerCase();
+
+        result.innerText=
+        "🎤 Чи: "+transcript;
+
+        if(
+            transcript===target ||
+            transcript.includes(target)
+        ){
+
+            speakingDone=true;
+
+            result.innerText=
+            "🎉 Зөв дуудлаа!";
+
+            result.style.color="#00ff88";
+
+            xp+=20;
+
+            addXP(20);
+
+            friendSay(
+                "WOW! Маш сайн дуудлаа! 🔥",
+                "happy"
+            );
+
+            if(navigator.vibrate){
+
+                navigator.vibrate([
+                    25,
+                    30,
+                    25
+                ]);
+            }
+
+            setTimeout(()=>{
+                showNextButton();
+            },600);
+
+        }else{
+
+            result.innerText=
+            "❌ Дахиад хэлээд үзээрэй.";
+
+            result.style.color="#ff4567";
+
+            friendSay(
+                "Ойролцоо байна! Дахиад хэлээрэй! 🎤",
+                "sad"
+            );
+
+            if(navigator.vibrate){
+                navigator.vibrate(50);
+            }
+        }
+    };
+
+    recognition.onerror=function(){
+
+        result.innerText=
+        "🎤 Дуу хоолой танихад асуудал гарлаа. Дахин оролдоорой.";
+
+        button.classList.remove("listening");
+
+        button.innerText=
+        "🎤 Дахин хэлэх";
+    };
+
+    recognition.onend=function(){
+
+        button.classList.remove("listening");
+
+        button.innerText=
+        "🎤 Дахин хэлэх";
+    };
+}
+
+/* =========================================================
+   NEXT
+========================================================= */
+
+function showNextButton(){
+
+    document.getElementById("nextButton").style.display=
+    "block";
+}
+
+function nextQuestion(){
+
+    if(hearts<=0){
+
+        finishQuiz();
+        return;
+    }
+
+    currentQuestion++;
+
+    if(currentQuestion>=questions.length){
+
+        finishQuiz();
+        return;
+    }
+
+    document.getElementById("answers").style.display="grid";
+
+    document.getElementById("question").style.display="block";
+
+    showQuestion();
+}
+
+/* =========================================================
+   XP
+========================================================= */
+
+function addXP(amount){
+
+    document.getElementById("xp").innerText=xp;
+
+    const box=document.getElementById("xpBox");
+
+    box.classList.remove("xp-glow");
+
+    void box.offsetWidth;
+
+    box.classList.add("xp-glow");
+
+    const popup=document.getElementById("xpPopup");
+
+    popup.innerText="+"+amount+" XP";
+
+    popup.classList.remove("show");
+
+    void popup.offsetWidth;
+
+    popup.classList.add("show");
+}
+
+/* =========================================================
+   FINISH
+========================================================= */
+
+function finishQuiz(){
+
+    clearTimeout(helpTimer);
+
+    document.getElementById("quizScreen").style.display="none";
+
+    document.getElementById("resultScreen").style.display="block";
+
+    document.getElementById("resultCorrect").innerText=
+    score+" / "+questions.length;
+
+    document.getElementById("resultXP").innerText=xp;
+
+    document.getElementById("resultClass").innerText=
+    selectedClass+"-р анги";
+
+    document.getElementById("resultDifficulty").innerText=
+    difficulty.toUpperCase();
+
+    document.getElementById("resultHearts").innerText=
+    hearts+"/5";
+
+    friendSay(
+        score>=questions.length/2
+        ? "Гайхалтай! Чи энэ level-ийг дуусгалаа! 🏆"
+        : "Зүгээр ээ! Дараагийн удаа бүр илүү сайн болно! 💪",
+        score>=questions.length/2 ? "happy":"sad"
+    );
+}
+
+/* =========================================================
+   SWIPE
+========================================================= */
+
+let touchStartX=0;
+let touchEndX=0;
+
+document.addEventListener(
+    "touchstart",
+    function(e){
+
+        touchStartX=
+        e.changedTouches[0].screenX;
+
+    },
+    {passive:true}
+);
+
+document.addEventListener(
+    "touchend",
+    function(e){
+
+        touchEndX=
+        e.changedTouches[0].screenX;
+
+        const distance=
+        touchEndX-touchStartX;
+
+        if(distance<-100){
+
+            const next=
+            document.getElementById("nextButton");
+
+            if(next.style.display==="block"){
+
+                nextQuestion();
+            }
+        }
+
+    },
+    {passive:true}
+);
+
+/* =========================================================
+   ENTER
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(
+            e.key==="Enter" &&
+            document.activeElement.id==="writeInput"
+        ){
+
+            checkWriting();
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>
